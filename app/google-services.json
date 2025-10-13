@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "901903336389",
+    "project_id": "voipapp-888fe",
+    "storage_bucket": "voipapp-888fe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901903336389:android:304a86237ac397829981ac",
+        "android_client_info": {
+          "package_name": "guide.kotlin.voipapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZuMdOpVg2N9mMMzYjhbrG-f_BH9Lfibw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
