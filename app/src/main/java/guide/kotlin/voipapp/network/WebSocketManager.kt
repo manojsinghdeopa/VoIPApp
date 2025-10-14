@@ -1,5 +1,6 @@
 package guide.kotlin.voipapp.network
 
+import android.util.Log
 import okhttp3.*
 import okio.ByteString
 import java.util.concurrent.TimeUnit
@@ -20,23 +21,23 @@ class WebSocketManager(private val listener: Listener) {
     fun connect(url: String) {
         val request = Request.Builder().url(url).build()
         webSocket = client.newWebSocket(request, object : WebSocketListener() {
-            override fun onOpen(ws: WebSocket, response: Response) {
+            override fun onOpen(webSocket: WebSocket, response: Response) {
                 listener.onConnected()
             }
 
-            override fun onMessage(ws: WebSocket, text: String) {
+            override fun onMessage(webSocket: WebSocket, text: String) {
                 listener.onMessage(text)
             }
 
-            override fun onMessage(ws: WebSocket, bytes: ByteString) {
+            override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
                 listener.onMessage(bytes.utf8())
             }
 
-            override fun onClosed(ws: WebSocket, code: Int, reason: String) {
+            override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
                 listener.onDisconnected()
             }
 
-            override fun onFailure(ws: WebSocket, t: Throwable, response: Response?) {
+            override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
                 listener.onFailure(t.message ?: "unknown")
             }
         })
@@ -49,4 +50,5 @@ class WebSocketManager(private val listener: Listener) {
     fun close() {
         webSocket?.close(1000, "Client closing")
     }
+
 }

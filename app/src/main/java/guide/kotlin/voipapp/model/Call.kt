@@ -1,5 +1,8 @@
 package guide.kotlin.voipapp.model
 
+
+enum class CallState { Idle, Calling, Incoming, Connected, Ended }
+
 data class CallLog(
     val call_id: String,
     val twilio_sid: String,

@@ -10,7 +10,7 @@ object NetworkUtils {
 
     // replace your local IP (same wifi/network Mobile+Laptop)
     // https://chatgpt.com/c/68ece585-ef0c-8321-8564-962b6a15078d
-    private val baseIp: String by lazy { if (isEmulator()) "10.0.2.2" else "192.168.29.153" }
+    private val baseIp: String by lazy { if (isEmulator()) "10.0.2.2" else "192.168.1.14" }
 
     fun getServerHttpUrl(): String = "http://$baseIp:$SERVER_PORT/"
 

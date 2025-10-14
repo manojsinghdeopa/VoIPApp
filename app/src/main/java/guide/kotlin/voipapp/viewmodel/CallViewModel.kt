@@ -1,6 +1,5 @@
 package guide.kotlin.voipapp.viewmodel
 
-
 import android.app.Application
 import android.content.Intent
 import androidx.core.content.ContextCompat
@@ -14,7 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import org.json.JSONObject
 
 class CallViewModel(app: Application) : AndroidViewModel(app), WebSocketManager.Listener {
-    private val _status = MutableStateFlow("Disconnected")
+    private val _status = MutableStateFlow("")
     val status: StateFlow<String> = _status
 
     private val _callState = MutableStateFlow(CallState.Idle)
@@ -30,6 +29,11 @@ class CallViewModel(app: Application) : AndroidViewModel(app), WebSocketManager.
 
     fun disConnectToServer() {
         wsManager.close()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disConnectToServer()
     }
 
     fun register(userId: String) {

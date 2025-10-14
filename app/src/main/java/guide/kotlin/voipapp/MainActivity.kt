@@ -23,13 +23,7 @@ import guide.kotlin.voipapp.ui.theme.VoIPAppTheme
 import guide.kotlin.voipapp.viewmodel.CallViewModel
 
 class MainActivity : ComponentActivity() {
-
-    private val callViewModel: CallViewModel by viewModels()
-
-    private val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             val message = if (isGranted) {
                 "Permission granted. You will now receive call notifications."
             } else {
@@ -55,13 +49,8 @@ class MainActivity : ComponentActivity() {
             }
         }
         askNotificationPermission()
-        callViewModel.connectToServer()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        callViewModel.disConnectToServer()
-    }
 
     private fun askNotificationPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {

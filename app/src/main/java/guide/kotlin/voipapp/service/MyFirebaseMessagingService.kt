@@ -12,11 +12,13 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import guide.kotlin.voipapp.MainActivity
 import guide.kotlin.voipapp.R
+import guide.kotlin.voipapp.utils.UserDataStore
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         Log.d("FCM", "token: $token")
-        // TODO: send to backend via /register-device
+        val userDataStore = UserDataStore(applicationContext)
+        userDataStore.saveFcmToken(token)
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
