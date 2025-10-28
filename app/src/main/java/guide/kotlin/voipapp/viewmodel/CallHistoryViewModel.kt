@@ -13,7 +13,7 @@ class CallHistoryViewModel(private val repo: CallLogRepository) : ViewModel() {
         viewModelScope, SharingStarted.Lazily, emptyList()
     )
 
-    fun sync(userId: String) {
+    fun syncCallLogs(userId: String) {
         viewModelScope.launch { repo.syncFromServer(userId) }
     }
 }

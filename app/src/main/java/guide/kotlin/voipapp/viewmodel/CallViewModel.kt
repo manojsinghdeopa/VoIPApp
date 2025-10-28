@@ -21,7 +21,7 @@ class CallViewModel(app: Application) : AndroidViewModel(app), WebSocketManager.
 
     private val wsManager = WebSocketManager(this)
     private var currentCallId: String? = null
-    private var incomingFrom: String? = null
+
 
     fun connectToServer() {
         wsManager.connect(getServerWsUrl())
@@ -37,6 +37,7 @@ class CallViewModel(app: Application) : AndroidViewModel(app), WebSocketManager.
     }
 
     fun register(userId: String) {
+
         val msg = JSONObject().apply {
             put("type", "register")
             put("userId", userId)
@@ -44,10 +45,11 @@ class CallViewModel(app: Application) : AndroidViewModel(app), WebSocketManager.
         wsManager.send(msg.toString())
     }
 
-    fun initiateCall(to: String) {
+    fun initiateCall(to: String, from: String) {
         val msg = JSONObject().apply {
             put("type", "initiate_call")
             put("to", to)
+            put("from", from)
         }
         wsManager.send(msg.toString())
         _callState.value = CallState.Calling
@@ -86,7 +88,7 @@ class CallViewModel(app: Application) : AndroidViewModel(app), WebSocketManager.
         when (json.getString("type")) {
             "incoming_call" -> {
                 currentCallId = json.getString("callId")
-                incomingFrom = json.optString("from")
+                val incomingFrom = json.optString("from")
                 _callState.value = CallState.Incoming
                 _status.value = "Incoming call from $incomingFrom"
                 // start foreground call service to show full-screen notification
@@ -133,4 +135,5 @@ class CallViewModel(app: Application) : AndroidViewModel(app), WebSocketManager.
     override fun onFailure(error: String) {
         _status.value = "Error: $error"
     }
+
 }

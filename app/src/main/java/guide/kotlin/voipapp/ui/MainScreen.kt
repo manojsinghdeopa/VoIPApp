@@ -36,7 +36,7 @@ fun MainScreen(viewModel: CallViewModel = viewModel()) {
                 CallState.Incoming -> IncomingCallUI(viewModel)
                 CallState.Calling -> OutgoingCallUI(viewModel)
                 CallState.Connected -> ActiveCallUI(viewModel)
-                else -> CallUI(viewModel, calleeId, onCalleeChange = { calleeId = it })
+                else -> CallUI(viewModel, calleeId, userDataStore.getPhoneNumber().toString(), onCalleeChange = { calleeId = it })
             }
 
             Text(
@@ -82,6 +82,7 @@ fun RegistrationUI(onRegister: () -> Unit) {
 fun CallUI(
     viewModel: CallViewModel,
     calleeId: String,
+    callerId: String,
     onCalleeChange: (String) -> Unit
 ) {
     Column(
@@ -94,7 +95,7 @@ fun CallUI(
         Spacer(Modifier.height(16.dp))
         OutlinedTextField(value = calleeId, onValueChange = onCalleeChange, label = { Text("User Number") })
         Spacer(Modifier.height(8.dp))
-        Button(onClick = { viewModel.initiateCall(calleeId) }) { Text("Start Call") }
+        Button(onClick = { viewModel.initiateCall(calleeId, callerId) }) { Text("Start Call") }
     }
 }
 
